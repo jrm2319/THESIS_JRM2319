@@ -1,0 +1,18 @@
+---
+title: "Data Importing & Cleaning"
+output: html_document
+Name: Jasmin Martinez
+Date: 03/18/2025
+---
+
+# Section 1
+```{r}
+samp = rnorm(100)
+length(samp)
+```
+
+# Section 2
+```{r}
+
+```
+
