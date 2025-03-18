@@ -5,14 +5,29 @@ Name: Jasmin Martinez
 Date: 03/18/2025
 ---
 
-# Section 1
-```{r}
-samp = rnorm(100)
-length(samp)
+# Data Import
+Data is stored in OneDrive, importing those data files into R to begin data processing and cleaning.
+```{r include=FALSE}
+library(haven)
+time_to_diabetes = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JRM2319/Mesa_TimeToDiabetes_20190604.sas7bdat")
+MESA_E1 = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JRM2319/MESAE1FinalLabel20240307.sas7bdat")
+MESA_E5 = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JRM2319/MESAe5_FinalLabel_20240213.sas7bdat")
 ```
 
-# Section 2
+
+# Cleaning MESA_E1 datafile
+Total observations in data file: 6814
+Total 
 ```{r}
 
 ```
 
+# Cleaning MESA_E5 datafile
+```{r}
+
+```
+
+# Cleaning time_to_diabetes datafile
+```{r}
+
+```

@@ -1,13 +1,15 @@
 Data Importing & Cleaning
 ================
 
-# Section 1
+# Data Import
 
-``` r
-samp = rnorm(100)
-length(samp)
-```
+Data is stored in OneDrive, importing those data files into R to begin
+data processing and cleaning.
 
-    ## [1] 100
+# Cleaning MESA_E1 datafile
 
-# Section 2
+Total observations in data file: 6814 Total
+
+# Cleaning MESA_E5 datafile
+
+# Cleaning time_to_diabetes datafile
