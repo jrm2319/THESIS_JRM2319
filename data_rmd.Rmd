@@ -1,6 +1,6 @@
 ---
 title: "Data Importing & Cleaning"
-output: html_document
+output: github_document
 Name: Jasmin Martinez
 Date: 03/18/2025
 ---
