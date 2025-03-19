@@ -15,11 +15,22 @@ MESA_E5 = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JR
 ```
 
 
-# Cleaning MESA_E1 datafile
-Total observations in data file: 6814
-Total 
+# Cleaning time_to_diabetes datafile
+- Observations: 6814  
+- Variables kept-    
+  - idno: Participant ID number  
+  - dmage: Age at Diabetes diagnosis 
+- Total number of missing values for **dmage**: 4917  
+  - *What are we doing with missing values*: Missing values will be left as 'NA' because the regression models that will be ran into this project can handel the 'NA' automatically or I can explciitly state to omit those values. 
 ```{r}
+library(dplyr)
+time_to_diabetes = select(time_to_diabetes, idno, dmage)
+sum(is.na(time_to_diabetes$dmage))
+```
 
+
+# Cleaning MESA_E1 datafile
+```{r}
 ```
 
 # Cleaning MESA_E5 datafile
@@ -27,7 +38,6 @@ Total
 
 ```
 
-# Cleaning time_to_diabetes datafile
 ```{r}
 
 ```
