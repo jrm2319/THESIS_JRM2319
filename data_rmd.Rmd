@@ -5,7 +5,7 @@ Name: Jasmin Martinez
 Date: 03/18/2025
 ---
 
-# Data Import
+## Data Import
 Data is stored in OneDrive, importing those data files into R to begin data processing and cleaning.
 ```{r include=FALSE}
 library(haven)
@@ -15,27 +15,34 @@ MESA_E5 = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JR
 ```
 
 
-# Cleaning time_to_diabetes datafile
+## Cleaning time_to_diabetes datafile
 - Observations: 6814  
 - Variables kept-    
   - idno: Participant ID number  
   - dmage: Age at Diabetes diagnosis 
+```{r include=FALSE}
+library(dplyr)
+```
+```{r}
+time_to_diabetes = select(time_to_diabetes, idno, dmage)
+skimr::skim(time_to_diabetes$dmage)
+```
 - Total number of missing values for **dmage**: 4917  
   - *What are we doing with missing values*: Missing values will be left as 'NA' because the regression models that will be ran into this project can handel the 'NA' automatically or I can explciitly state to omit those values. 
-```{r}
-library(dplyr)
-time_to_diabetes = select(time_to_diabetes, idno, dmage)
-sum(is.na(time_to_diabetes$dmage))
-```
+- Mean for variables:
+  - dmage: Average age of diabetes diagnosis among study participants is 63.50, with a SD of 11.67.
+- **Note**: This variable has a lot of missing data with a complete rate of about 27.8%. We may or may not need this variable--I am assuming that most of the diabetes data will come from the E1 or E5 files. At least for the 'ever having daiabetes' variables will come from the E1 and E3 files, *not* this file, as previously thought. 
 
-# Cleaning MESA_E5 datafile (Clean this first because this is the data we'll primalry using, from E1 we only need diabetes info to make the 'ever having diabetes' variable)
-
-# Cleaning MESA_E1 datafile
-- Observations: 6814
-- Variables kept-
+## Cleaning MESA_E5 datafile 
+- Time frame for data file: April 2010-Feb 2012
+- Observations: 
+- Variables Kept-
   - Idno: Participant ID number 
-  - age: age
-  - age1c: age categories 
+  - ecomp5c: Exam 5 Completion Status
+  - age1c: age at Exam 1 
+  - agecat1c: age categories at Exam 1 
+  - age5c: Age at Exam 5 
+  - agecat5c: age categories at Exam 5
   - race1c: race/ethnicity
   - mexican1: Mexican, Chicano, Mexican-American
   - dominic1: Dominican 
@@ -44,40 +51,50 @@ sum(is.na(time_to_diabetes$dmage))
   - othhisp1: Other Hispanic 
   - lang1: Language spoken at Exam 1 
   - gender1: Gender 
-  - site1c: Site
-  - bmi1c: BMI
-  - cig1c: Cigarette smoking status 
-  - dbp1c: Seated diastolic blood pressure 
-  - sbp1c: seated systolic blood pressure
-  - glucos1c: Fasting glucose calibrated
-  - glucos1u: Fasting glucose originial 
-  - dm031c: Exam 1 Diabetes Mellitus by 2003 ADA Fasting Criteria Algorithm 
-  - ldl1: LDL cholesterol 
-  - ldlcat1c: LDL cholesterol (categorical)
-  - hdl1: HDL Cholesterol
-  - hdlcat1c: HDL cholesterol (categorical)
-  - chol1: Total cholesterol 
-  - highbp1: Hypertension 
-  - diabet1: Diabetes Self-Reported 
-  - bth1: Birth Place-Self 
+  - site5c: Site at Exam 5
+  - bmi5c: BMI 
+  - cig5c: Cigarette smoking status 
+  - dbp5c: Seated diastolic blood pressure 
+  - sbp5c: seated systolic blood pressure
+  - glucose5: Fasting glucose (mg/dl)
+  - dm035c: Diabetes 2003 ADA Fasting Criteria 
+  - ldl5: LDL cholesterol 
+  - ldlcat5c: LDL cholesterol (categorical)
+  - hdl5: HDL Cholesterol
+  - hdlcat5c: HDL cholesterol (categorical)
+  - chol5: Total cholesterol 
+  - htn5c: Hypertension by JNC VI (1997) Creteria
+  - income5: total gross family income, past 12 months 
+  - exercm5c: Total intentional exercises- Min/Week
+  - casisum5c: Total cognitive assessment score
+  - numhhld5: # of people supported by family income
+- Total missing: 
+  - (per variable) 
+- Means/SD 
+  - (per variable)
+```{r}
+
+```
+- To consider: for the Exam 5 Completion Status (ecomp5c), should I only include 1 = complete? or also include 2 = partially complete (home admin) or 3 = partially complete (phone admin)? 
+
+# Cleaning MESA_E1 datafile
+- Observations: 6814
+- Variables kept-
+  - Idno: Participant ID number 
+  - bth1: Birth Place-Self
   - ctrybth1: Birth country 
   - langhm1: Language Spoken at home 
   - educ1: education: highest level completed 
-  - income1: total gross family income, past 12 months 
   - yrsalc1c: # of years drinking alcohol (current and former drinkers)
-  - alcwk1c: # of drinks per week (current and former drinkers)
-  - exercm1c: Total intentional exercises- Min/Week
-  - casisum6c: Total cognitive assessment score
-  - valid6: Validity of score (for the CASI score)
+  - alcwk1c: # of drinks per week (current and former drinkers) 
   - nviolen1: Violence Problem in Neighborhood 
   - nlfshop1: Lack of adequate food shopping in neighborhood 
-  - nnoise1: Excessive noise in neighborhood
-  - nvalues1: People in neighborhood do not share the same values 
+  - nnoise1: Excessive noise in neighborhood 
+  - nvalues1: People in neighborhood do not share the same values
   - nclose1: Close-knit neighborhood 
-  - Nhdtim1c or nhdyrs1: # of years in the neighborhood
+  - Nhdtim1c or nhdyrs1: # of years in the neighborhood 
   - ncohes1c: Neighborhood social cohesion score 
   - nprob1c: Neighborhood problems score 
-  - numhhld1: # of people supported by family income 
 - Total missing variables for 
 ```{r}
 
