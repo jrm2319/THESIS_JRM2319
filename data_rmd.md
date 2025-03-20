@@ -8,55 +8,33 @@ data processing and cleaning.
 
 ## Cleaning time_to_diabetes datafile
 
-- Observations: 6814  
-- Variables kept-
+- **Observations**: 6814  
+- **Variables kept:** 2
+  <details>
+
   - idno: Participant ID number  
   - dmage: Age at Diabetes diagnosis
 
+  </details>
+- **Missing values**
+
 ``` r
-time_to_diabetes = select(time_to_diabetes, idno, dmage)
-skimr::skim(time_to_diabetes$dmage)
+colSums(is.na(time_to_diabetes))
 ```
 
-|                                                  |                         |
-|:-------------------------------------------------|:------------------------|
-| Name                                             | time_to_diabetes\$dmage |
-| Number of rows                                   | 6814                    |
-| Number of columns                                | 1                       |
-| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   |                         |
-| Column type frequency:                           |                         |
-| numeric                                          | 1                       |
-| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |                         |
-| Group variables                                  | None                    |
+    ##  idno dmage 
+    ##     0  4917
 
-Data summary
-
-**Variable type: numeric**
-
-| skim_variable | n_missing | complete_rate | mean |    sd |  p0 | p25 | p50 | p75 | p100 | hist  |
-|:--------------|----------:|--------------:|-----:|------:|----:|----:|----:|----:|-----:|:------|
-| data          |      4917 |          0.28 | 63.5 | 11.67 |  12 |  56 |  64 |  72 |   94 | ▁▁▆▇▂ |
-
-- Total number of missing values for **dmage**: 4917
-  - *What are we doing with missing values*: Missing values will be left
-    as ‘NA’ because the regression models that will be ran into this
-    project can handel the ‘NA’ automatically or I can explciitly state
-    to omit those values.
-- Mean for variables:
-  - dmage: Average age of diabetes diagnosis among study participants is
-    63.50, with a SD of 11.67.
-- **Note**: This variable has a lot of missing data with a complete rate
-  of about 27.8%. We may or may not need this variable–I am assuming
-  that most of the diabetes data will come from the E1 or E5 files. At
-  least for the ‘ever having daiabetes’ variables will come from the E1
-  and E3 files, *not* this file, as previously thought.
+    - *What are we doing with missing values*: Missing values will be left as 'NA' because the regression models that will be ran into this project can handle the 'NA' automatically or I can explicitly state to omit those values. However, this variable has a lot of missing data with a complete rate of about 27.8%. We may or may not need this variable--I am assuming that most of the diabetes data will come from the E1 or E5 files. At least for the 'ever having diabetes' variables will come from the E1 and E3 files, *not* this file, as previously thought. 
 
 ## Cleaning MESA_E5 datafile
 
-- Time frame for data file: April 2010-Feb 2012
-- Observations:
-- Variables Kept-
-  - Idno: Participant ID number
+- **Time frame for data file**: April 2010-Feb 2012
+- **Observations**: 4716
+- **Variables Kept:** 31
+  <details>
+
+  - idno: Participant ID number
   - ecomp5c: Exam 5 Completion Status
   - age1c: age at Exam 1
   - agecat1c: age categories at Exam 1
@@ -87,10 +65,34 @@ Data summary
   - exercm5c: Total intentional exercises- Min/Week
   - casisum5c: Total cognitive assessment score
   - numhhld5: \# of people supported by family income
-- Total missing:
-  - (per variable)
-- Means/SD
-  - (per variable)
+
+  </details>
+- **Missing Values:**
+
+``` r
+colSums(is.na(MESA_E5))
+```
+
+    ##      idno   ecomp5c     age1c  agecat1c     age5c  agecat5c    race1c  mexican1 
+    ##         0         0         0         0         0         0         0         9 
+    ##  dominic1    puert1    cuban1  othhisp1     lang1   gender1    site5c     bmi5c 
+    ##         9         9         9         9         0         0         0        74 
+    ##     cig5c     dbp5c     sbp5c  glucose5    dm035c      ldl5  ldlcat5c      hdl5 
+    ##         0        63        63       129       121       157       157       135 
+    ##  hdlcat5c     chol5     htn5c   income5  exercm5c casisum5c  numhhld5 
+    ##       135       134        63       213        78       125       109
+
+At this point, I will only be removing participants who are not
+Hispanic/Latino (from race1c) and those who are missing values for the
+CASI assessment at Exam 5. Participants with missing values for
+exposures of interests will be potentially removed after merging Exam 1
+and Exam 5. The reasoning for this is because variables across both Exam
+1 and Exam 5 will be used in the creation of the acculturation score and
+the ‘ever having diabetes’ variables, therefore the full extent to
+missing-ness cannot be assessed until I get to that merged dataset.
+
+125 study parti
+
 - To consider: for the Exam 5 Completion Status (ecomp5c), should I only
   include 1 = complete? or also include 2 = partially complete (home
   admin) or 3 = partially complete (phone admin)?
