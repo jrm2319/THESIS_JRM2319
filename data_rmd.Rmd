@@ -78,21 +78,27 @@ MESA_E5 = select(MESA_E5, idno, ecomp5c, age1c, agecat1c, age5c, agecat5c, race1
 ```{r}
 colSums(is.na(MESA_E5))
 ```
-At this point, I will only be removing participants who are not Hispanic/Latino (from race1c) and those who are missing values for the CASI assessment at Exam 5. Participants with missing values for exposures of interests will be potentially removed after merging Exam 1 and Exam 5. The reasoning for this is because variables across both Exam 1 and Exam 5 will be used in the creation of the acculturation score and the 'ever having diabetes' variables, therefore the full extent to missing-ness cannot be assessed until I get to that merged dataset.  
+At this point, I'll only be removing participants who are not Hispanic/Latino (from race1c) and those who are missing values for the CASI assessment at Exam 5. Participants with missing values for exposures of interests will be potentially removed after merging Exam 1 and Exam 5. 
+
+The reasoning for this is because variables across both Exam 1 and Exam 5 will be used in the creation of the acculturation score and the 'ever having diabetes' variables, therefore the full extent to missing-ness cannot be assessed until I get to that merged dataset.  
 
 
-```{r eval=FALSE, include=FALSE}
-
-MESA_E5 = filter(MESA_E5 %>% 
-                   race1c == 4 %>% 
-                   casisum5c != 'NA')
-
-table(MESA_E5$race1c)
+```{r echo=TRUE}
+MESA_E5 = MESA_E5 %>% 
+          filter(race1c == 4,
+                 casisum5c != 'NA')
 ```
+There are 999 Hispanic/Latino's in the sample, of these 15 have a missing CASI Score in Exam 5--we will exclude these participants. **Our final sample for Exam 5 is 984, with 31 variables.**
 
-125 study parti
-  
-- To consider: for the Exam 5 Completion Status (ecomp5c), should I only include 1 = complete? or also include 2 = partially complete (home admin) or 3 = partially complete (phone admin)? 
+```{r}
+library(dplyr)
+glimpse(MESA_E5)
+```
+*To consider:* For the Exam 5 Completion Status (ecomp5c), should I only include 1 = complete? or also include 2 = partially complete (home admin) or 3 = partially complete (phone admin)? N's are below: 
+
+```{r echo=FALSE}
+table(MESA_E5$ecomp5c)
+```
 
 # Cleaning MESA_E1 datafile
 - Observations: 6814
