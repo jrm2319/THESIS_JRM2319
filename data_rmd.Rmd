@@ -5,8 +5,12 @@ Name: Jasmin Martinez
 Date: 03/18/2025
 ---
 
-## Data Import
+### Data Import
 Data is stored in OneDrive, importing those data files into R to begin data processing and cleaning.
+
+- Mesa_TimeToDiabetes_20190604.sas7bdat = **time_to_diabetes**  
+- MESAE1FinalLabel20240307.sas7bdat = **MESA_E1**  
+- MESAe5_FinalLabel_20240213.sas7bdat = **MESA_E5**  
 ```{r include=FALSE}
 library(haven)
 time_to_diabetes = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JRM2319/Mesa_TimeToDiabetes_20190604.sas7bdat")
@@ -15,8 +19,10 @@ MESA_E5 = read_sas("C:/Users/jasmi/OneDrive/Desktop/Spring 2025/Thesis/THESIS_JR
 ```
 
 
-## Cleaning time_to_diabetes datafile
-- **Observations**: 6814  
+### Cleaning time_to_diabetes datafile
+- **Starting # of Observations**: 6814 
+- **Starting # of variables:** 12
+
 - **Variables kept:** 2
 <details>
   - idno: Participant ID number  
@@ -30,12 +36,13 @@ time_to_diabetes = select(time_to_diabetes, idno, dmage)
 ```{r}
 colSums(is.na(time_to_diabetes))
 ```
+- *What am I doing with missing values*: Missing values will be left as 'NA' because the regression models that will be ran into this project can handle the 'NA' automatically or I can explicitly state to omit those values. However, this variable has a lot of missing data with a complete rate of about 27.8%. We may or may not need this variable--I am assuming that most of the diabetes data will come from the E1 or E5 files. At least for the 'ever having diabetes' variables will come from the E1 and E3 files, *not* this file, as previously thought. 
 
-    - *What are we doing with missing values*: Missing values will be left as 'NA' because the regression models that will be ran into this project can handle the 'NA' automatically or I can explicitly state to omit those values. However, this variable has a lot of missing data with a complete rate of about 27.8%. We may or may not need this variable--I am assuming that most of the diabetes data will come from the E1 or E5 files. At least for the 'ever having diabetes' variables will come from the E1 and E3 files, *not* this file, as previously thought. 
-
-## Cleaning MESA_E5 datafile 
+### Cleaning MESA_E5 datafile 
 - **Time frame for data file**: April 2010-Feb 2012
-- **Observations**: 4716
+- **Starting # of Observations**: 4716
+- **Starting # of variables**: 297
+
 - **Variables Kept:** 31
 <details>
   - idno: Participant ID number 
@@ -88,7 +95,10 @@ MESA_E5 = MESA_E5 %>%
           filter(race1c == 4,
                  casisum5c != 'NA')
 ```
-There are 999 Hispanic/Latino's in the sample, of these 15 have a missing CASI Score in Exam 5--we will exclude these participants. **Our final sample for Exam 5 is 984, with 31 variables.**
+There are 999 Hispanic/Latino's in the sample, of these 15 have a missing CASI Score in Exam 5--we will exclude these participants. 
+
+- **Final # of Observations:** 984
+- **Final # of variables:** 31
 
 ```{r}
 library(dplyr)
@@ -100,9 +110,12 @@ glimpse(MESA_E5)
 table(MESA_E5$ecomp5c)
 ```
 
-# Cleaning MESA_E1 datafile
-- Observations: 6814
-- Variables kept-
+## Cleaning MESA_E1 datafile
+- **Starting # of Observations:** 6814
+- **Starting # of variables:** 813
+
+- **Variables kept:** 15
+<details>
   - Idno: Participant ID number 
   - bth1: Birth Place-Self
   - ctrybth1: Birth country 
@@ -117,17 +130,41 @@ table(MESA_E5$ecomp5c)
   - nclose1: Close-knit neighborhood 
   - Nhdtim1c or nhdyrs1: # of years in the neighborhood 
   - ncohes1c: Neighborhood social cohesion score 
-  - nprob1c: Neighborhood problems score 
-- Total missing variables for 
+  - nprob1c: Neighborhood problems score
+</details>
+- **Missing Values:** 
 ```{r}
-
+library(dplyr)
+MESA_E1 = select(MESA_E1, idno, bth1, ctrybth1, langhm1, educ1, yrsalc1c, alcwk1c, nviolen1, nlfshop1, nnoise1, nvalues1, nclose1, nhdtim1c, ncohes1c, nprob1c)
 ```
 
+I am keeping 15 variable. No participants will be removed from this datafile because I'll be preforming a left join with the MESA_E5 datafile being first and MESA_E1 being second, using idno. Therefore, the resulting dataset will not include the 984 Latinos who had CASI scores at Exam 5. 
 
+- **Final # of observations:** 6814
+- **Final # of variables:** 15
+
+### Merging MESA_e5 (left) with MESA_e1 (right) to create *MESA_final*:
+- **Final # of observations:** 984 
+- **Final # of variables:** 45
 ```{r}
-
+MESA_final = 
+  left_join(MESA_E5, MESA_E1, by = "idno")
+library(dplyr)
+glimpse(MESA_final)
 ```
 
+### Merging MESA_final(left) with time_to_diabetes (right) to create *MESA_final*:
+- **Final # of observations:** 984 
+- **Final # of variables:** 46
 ```{r}
-
+MESA_final = 
+  left_join(MESA_final, time_to_diabetes, by = "idno")
+library(dplyr)
+glimpse(MESA_final)
 ```
+
+### Assessing missing-ness in final sample:
+```{r}
+colSums(is.na(MESA_final))
+```
+
