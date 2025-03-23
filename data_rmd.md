@@ -12,6 +12,8 @@ data processing and cleaning.
 
 ### Cleaning time_to_diabetes datafile
 
+- **Time frame for data file**: Updated per follow-up or exam visit
+
 - **Starting \# of Observations**: 6814
 
 - **Starting \# of variables:** 12
@@ -37,11 +39,13 @@ colSums(is.na(time_to_diabetes))
 - *What am I doing with missing values*: Missing values will be left as
   ‘NA’ because the regression models that will be ran into this project
   can handle the ‘NA’ automatically or I can explicitly state to omit
-  those values. However, this variable has a lot of missing data with a
-  complete rate of about 27.8%. We may or may not need this variable–I
-  am assuming that most of the diabetes data will come from the E1 or E5
-  files. At least for the ‘ever having diabetes’ variables will come
-  from the E1 and E3 files, *not* this file, as previously thought.
+  those values. However, this variable has a lot of missing data–we may
+  or may not need this variable. Could be useful to show the average age
+  of diabetes onset for the sample population, to be discussed.
+
+- **Final \# of Observations:** 6814
+
+- **Final \# of variables:** 2
 
 ### Cleaning MESA_E5 datafile
 
@@ -176,6 +180,8 @@ admin) or 3 = partially complete (phone admin)? N’s are below:
 
 ## Cleaning MESA_E1 datafile
 
+- **Time frame for data file**: July 2000-August 2002
+
 - **Starting \# of Observations:** 6814
 
 - **Starting \# of variables:** 813
@@ -202,18 +208,11 @@ admin) or 3 = partially complete (phone admin)? N’s are below:
 
   </details>
 
-- **Missing Values:**
-
-``` r
-library(dplyr)
-MESA_E1 = select(MESA_E1, idno, bth1, ctrybth1, langhm1, educ1, yrsalc1c, alcwk1c, nviolen1, nlfshop1, nnoise1, nvalues1, nclose1, nhdtim1c, ncohes1c, nprob1c)
-```
-
-I am keeping 15 variable. No participants will be removed from this
-datafile because I’ll be preforming a left join with the MESA_E5
-datafile being first and MESA_E1 being second, using idno. Therefore,
-the resulting dataset will not include the 984 Latinos who had CASI
-scores at Exam 5.
+I am keeping 15 variable. No participants will be removed from this data
+file because I’ll be preforming a left join with the MESA_E5 data file
+being first and MESA_E1 being second, using idno. Therefore, the
+resulting dataset will only include the 984 Latinos who had CASI scores
+at Exam 5.
 
 - **Final \# of observations:** 6814
 - **Final \# of variables:** 15
