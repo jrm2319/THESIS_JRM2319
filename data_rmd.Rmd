@@ -110,6 +110,8 @@ glimpse(MESA_E5)
 ```
 *To consider:* For the Exam 5 Completion Status (ecomp5c), should I only include 1 = complete? or also include 2 = partially complete (home admin) or 3 = partially complete (phone admin)? N's are below: 
 
+No, participants will not be excluded based on Exam 5 Completion Status.
+
 ```{r echo=FALSE}
 table(MESA_E5$ecomp5c)
 ```

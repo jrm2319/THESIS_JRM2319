@@ -174,6 +174,8 @@ glimpse(MESA_E5)
 include 1 = complete? or also include 2 = partially complete (home
 admin) or 3 = partially complete (phone admin)? N’s are below:
 
+No, participants will not be excluded based on Exam 5 Completion Status.
+
     ## 
     ##   1   2 
     ## 971  13
