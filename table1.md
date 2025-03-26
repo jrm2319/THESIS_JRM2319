@@ -203,24 +203,27 @@ Exam 1” and “Language spoken at home”?
 
 #### Geographic Location
 
-3: WFU = Winston-Salem, NC  
-4: COL = New York, NY  
+3: WFU = Winston-Salem, NC 4: COL = New York, NY  
 5: JHU = Baltimore, MD  
 6: UMN = Minneapolis, MN  
 7: NWU = Chicago, IL  
 8: UCLA = Los Angeles, CA
 
 ``` r
-table(MESA_final$site1c)
+table(MESA_final$site5c)
 ```
 
-    ## < table of extent 0 >
+    ## 
+    ##   3   4   6   8 
+    ##   2 363 322 297
 
 ``` r
-prop.table(table(MESA_final$site1c))
+prop.table(table(MESA_final$site5c))
 ```
 
-    ## numeric(0)
+    ## 
+    ##          3          4          6          8 
+    ## 0.00203252 0.36890244 0.32723577 0.30182927
 
 #### Cigarette Smoking Status
 
@@ -229,34 +232,41 @@ prop.table(table(MESA_final$site1c))
 2: Current
 
 ``` r
-table(MESA_final$cig1c)
+table(MESA_final$cig5c)
 ```
 
-    ## < table of extent 0 >
+    ## 
+    ##   0   1   2 
+    ## 457 457  70
 
 ``` r
-prop.table(table(MESA_final$cig1c))
+prop.table(table(MESA_final$cig5c))
 ```
 
-    ## numeric(0)
+    ## 
+    ##          0          1          2 
+    ## 0.46443089 0.46443089 0.07113821
 
 #### Hypertension
 
 0: No  
-1: Yes  
-9: Do not know
+1: Yes
 
 ``` r
-table(MESA_final$highbp1)
+table(MESA_final$htn5c)
 ```
 
-    ## < table of extent 0 >
+    ## 
+    ##   0   1 
+    ## 386 597
 
 ``` r
-prop.table(table(MESA_final$highbp1))
+prop.table(table(MESA_final$htn5c))
 ```
 
-    ## numeric(0)
+    ## 
+    ##         0         1 
+    ## 0.3926755 0.6073245
 
 #### Diabetes at Exam
 
@@ -267,22 +277,120 @@ prop.table(table(MESA_final$highbp1))
 3: Treated Diabetes
 
 ``` r
-table(MESA_final$dm031c)
+table(MESA_final$dm035c)
 ```
 
-    ## < table of extent 0 >
+    ## 
+    ##   0   1   2   3 
+    ## 474 243  22 239
 
 ``` r
-prop.table(table(MESA_final$dm031c))
+prop.table(table(MESA_final$dm035c))
 ```
 
-    ## numeric(0)
+    ## 
+    ##          0          1          2          3 
+    ## 0.48466258 0.24846626 0.02249489 0.24437628
 
 *Question*: Should I create new variable combining Normal and IFG as “no
 diabetes” and untrested diabetes and treated diabetes as “diabetes”?
 
 ### Mean & SDs
 
-Age BMI Average intentional exercises, minutes per week Average age of
-diabetes diagnosis, yrs Average LDL cholesterol Average HDL cholesterol
+Age
+
+``` r
+mean(MESA_final$age5c, na.rm = TRUE)
+```
+
+    ## [1] 69.20224
+
+``` r
+sd(MESA_final$age5c, na.rm = TRUE)
+```
+
+    ## [1] 9.561003
+
+BMI
+
+``` r
+mean(MESA_final$bmi5c, na.rm = TRUE)
+```
+
+    ## [1] 29.76487
+
+``` r
+sd(MESA_final$bmi5c, na.rm = TRUE)
+```
+
+    ## [1] 5.620989
+
+Average intentional exercises, minutes per week
+
+``` r
+mean(MESA_final$exercm5c, na.rm = TRUE)
+```
+
+    ## [1] 2373.951
+
+``` r
+sd(MESA_final$exercm5c, na.rm = TRUE)
+```
+
+    ## [1] 3006.318
+
+Average age of diabetes diagnosis, yrs
+
+``` r
+mean(MESA_final$dmage, na.rm = TRUE)
+```
+
+    ## [1] 62.97867
+
+``` r
+sd(MESA_final$dmage, na.rm = TRUE)
+```
+
+    ## [1] 10.8979
+
+Average LDL cholesterol
+
+``` r
+mean(MESA_final$ldl5, na.rm = TRUE)
+```
+
+    ## [1] 104.3226
+
+``` r
+sd(MESA_final$ldl5, na.rm = TRUE)
+```
+
+    ## [1] 32.65871
+
+Average HDL cholesterol
+
+``` r
+mean(MESA_final$hdl5, na.rm = TRUE)
+```
+
+    ## [1] 51.31934
+
+``` r
+sd(MESA_final$hdl5, na.rm = TRUE)
+```
+
+    ## [1] 14.52656
+
 Average cognitive assessment score-CASI
+
+``` r
+mean(MESA_final$casisum5c, na.rm = TRUE)
+```
+
+    ## [1] 82.33486
+
+``` r
+sd(MESA_final$casisum5c, na.rm = TRUE)
+```
+
+    ## [1] 12.46921

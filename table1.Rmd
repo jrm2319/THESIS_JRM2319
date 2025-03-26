@@ -84,15 +84,15 @@ prop.table(table(MESA_final$langhm1))
 _Question_ Should we create another variable using "Language spoken at Exam 1" and "Language spoken at home"? 
 
 #### Geographic Location  
-3: WFU = Winston-Salem, NC  
+3: WFU = Winston-Salem, NC
 4: COL = New York, NY  
 5: JHU = Baltimore, MD  
 6: UMN = Minneapolis, MN  
 7: NWU = Chicago, IL  
 8: UCLA = Los Angeles, CA  
 ```{r}
-table(MESA_final$site1c)
-prop.table(table(MESA_final$site1c))
+table(MESA_final$site5c)
+prop.table(table(MESA_final$site5c))
 ```
 
 #### Cigarette Smoking Status  
@@ -100,17 +100,16 @@ prop.table(table(MESA_final$site1c))
 1: Former  
 2: Current  
 ```{r}
-table(MESA_final$cig1c)
-prop.table(table(MESA_final$cig1c))
+table(MESA_final$cig5c)
+prop.table(table(MESA_final$cig5c))
 ```
 
 #### Hypertension  
 0: No  
 1: Yes  
-9: Do not know   
 ```{r}
-table(MESA_final$highbp1)
-prop.table(table(MESA_final$highbp1))
+table(MESA_final$htn5c)
+prop.table(table(MESA_final$htn5c))
 ```
 
 #### Diabetes at Exam  
@@ -120,21 +119,49 @@ prop.table(table(MESA_final$highbp1))
 2: Untreated Diabetes  
 3: Treated Diabetes   
 ```{r}
-table(MESA_final$dm031c)
-prop.table(table(MESA_final$dm031c))
+table(MESA_final$dm035c)
+prop.table(table(MESA_final$dm035c))
 ```
-
-
 _Question_: Should I create new variable combining Normal and IFG as "no diabetes" and untrested diabetes and treated diabetes as "diabetes"? 
 
 ### Mean & SDs  
-Age
-BMI
-Average intentional exercises, minutes per week 
+Age  
+```{r}
+mean(MESA_final$age5c, na.rm = TRUE)
+sd(MESA_final$age5c, na.rm = TRUE)
+```
+BMI  
+```{r}
+mean(MESA_final$bmi5c, na.rm = TRUE)
+sd(MESA_final$bmi5c, na.rm = TRUE)
+```
+Average intentional exercises, minutes per week  
+```{r}
+mean(MESA_final$exercm5c, na.rm = TRUE)
+sd(MESA_final$exercm5c, na.rm = TRUE)
+```
+
 Average age of diabetes diagnosis, yrs
+```{r}
+mean(MESA_final$dmage, na.rm = TRUE)
+sd(MESA_final$dmage, na.rm = TRUE)
+```
 Average LDL cholesterol 
+```{r}
+mean(MESA_final$ldl5, na.rm = TRUE)
+sd(MESA_final$ldl5, na.rm = TRUE)
+```
 Average HDL cholesterol
+```{r}
+mean(MESA_final$hdl5, na.rm = TRUE)
+sd(MESA_final$hdl5, na.rm = TRUE)
+```
 Average cognitive assessment score-CASI  
+```{r}
+mean(MESA_final$casisum5c, na.rm = TRUE)
+sd(MESA_final$casisum5c, na.rm = TRUE)
+```
+
 
 
 
