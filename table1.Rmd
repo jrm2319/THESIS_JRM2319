@@ -1,0 +1,22 @@
+---
+title: "Table 1"
+output: github_document
+Name: Jasmin Martinez
+Date: 03/18/2025
+--
+
+## Tabulation
+Gender 
+Nativity 
+Nationality 
+Preferred Language 
+Geographic Location
+Cigarette Smoking Status
+Hypertension 
+Alcohol consumption
+Diabetes, at Exam 1 
+Diabetes type 
+
+## Means & SDs
+
+

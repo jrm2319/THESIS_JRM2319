@@ -167,6 +167,9 @@ MESA_final =
   left_join(MESA_final, time_to_diabetes, by = "idno")
 library(dplyr)
 glimpse(MESA_final)
+
+saveRDS(MESA_final, "MESA_final.rds")
+
 ```
 
 ### Assessing missing-ness in final sample:

@@ -340,6 +340,10 @@ glimpse(MESA_final)
     ## $ nprob1c   <dbl> 10, 10, 12, 15, 13, 22, 9, 10, 10, 18, 13, 16, 13, 12, 11, 7…
     ## $ dmage     <dbl> 73, NA, NA, 61, 62, 77, NA, 21, 57, NA, 81, NA, NA, NA, NA, …
 
+``` r
+saveRDS(MESA_final, "MESA_final.rds")
+```
+
 ### Assessing missing-ness in final sample:
 
 ``` r
