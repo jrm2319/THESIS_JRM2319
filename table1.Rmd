@@ -3,20 +3,138 @@ title: "Table 1"
 output: github_document
 Name: Jasmin Martinez
 Date: 03/18/2025
---
+---
+```{r}
+MESA_final <- readRDS("MESA_final.rds")
+```
 
-## Tabulation
-Gender 
-Nativity 
-Nationality 
-Preferred Language 
-Geographic Location
-Cigarette Smoking Status
-Hypertension 
-Alcohol consumption
-Diabetes, at Exam 1 
-Diabetes type 
+### Tabulation
+#### Gender 
+0: female  
+1: Male
+```{r}
+table(MESA_final$gender1)
+prop.table(table(MESA_final$gender1))
+```
+#### Nativity
+1: One of 50 US states   
+2: Puerto Rico   
+3: Another country  
+```{r}
+table(MESA_final$bth1)
+prop.table(table(MESA_final$bth1))
+```
+#### Nationality
+Mexican, Chicano, Mexican-American   
+0: No  
+1: Yes  
+```{r}
+table(MESA_final$mexican1)
+prop.table(table(MESA_final$mexican1))
+```
+Dominican   
+0: N  
+1: Y  
+```{r}
+table(MESA_final$dominic1)
+prop.table(table(MESA_final$dominic1))
+```
+Puerto Rican   
+0: No  
+1: yes  
+```{r}
+table(MESA_final$puert1)
+prop.table(table(MESA_final$puert1))
+```
+Cuban   
+0: No  
+1: Yes  
+```{r}
+table(MESA_final$cuban1)
+prop.table(table(MESA_final$cuban1))
+```
+Other Hispanic   
+0: No  
+1: Yes   
+```{r}
+table(MESA_final$othhisp1)
+prop.table(table(MESA_final$othhisp1))
+```
+#### Preferred Language 
+*Using "Language spoken at Exam 1*  
+1:English   
+2: Spanish   
+3: Chinese  
+```{r}
+table(MESA_final$lang1)
+prop.table(table(MESA_final$lang1))
+```
 
-## Means & SDs
+*Using "Language spoken at  home*  
+1: ENGLISH  
+2: SPANISH  
+3: CANTONESE  
+4: MANDARIN  
+5: OTHER 
+```{r}
+table(MESA_final$langhm1)
+prop.table(table(MESA_final$langhm1))
+```
+
+_Question_ Should we create another variable using "Language spoken at Exam 1" and "Language spoken at home"? 
+
+#### Geographic Location  
+3: WFU = Winston-Salem, NC  
+4: COL = New York, NY  
+5: JHU = Baltimore, MD  
+6: UMN = Minneapolis, MN  
+7: NWU = Chicago, IL  
+8: UCLA = Los Angeles, CA  
+```{r}
+table(MESA_final$site1c)
+prop.table(table(MESA_final$site1c))
+```
+
+#### Cigarette Smoking Status  
+0: Never  
+1: Former  
+2: Current  
+```{r}
+table(MESA_final$cig1c)
+prop.table(table(MESA_final$cig1c))
+```
+
+#### Hypertension  
+0: No  
+1: Yes  
+9: Do not know   
+```{r}
+table(MESA_final$highbp1)
+prop.table(table(MESA_final$highbp1))
+```
+
+#### Diabetes at Exam  
+"Exam 1 Diabetes Mellitus by 2003 ADA Fasting Criteria Algorithm"   
+0: Normal  
+1: IFG ("impaired fasting glucose")  
+2: Untreated Diabetes  
+3: Treated Diabetes   
+```{r}
+table(MESA_final$dm031c)
+prop.table(table(MESA_final$dm031c))
+```
+
+
+_Question_: Should I create new variable combining Normal and IFG as "no diabetes" and untrested diabetes and treated diabetes as "diabetes"? 
+
+### Mean & SDs  
+Age
+BMI
+Average intentional exercises, minutes per week 
+Average age of diabetes diagnosis, yrs
+Average LDL cholesterol 
+Average HDL cholesterol
+Average cognitive assessment score-CASI  
+
 
 
