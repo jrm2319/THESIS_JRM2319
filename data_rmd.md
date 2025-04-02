@@ -55,7 +55,7 @@ colSums(is.na(time_to_diabetes))
 
 - **Starting \# of variables**: 297
 
-- **Variables Kept:** 31
+- **Variables Kept:** 32
 
   <details>
 
@@ -76,6 +76,7 @@ colSums(is.na(time_to_diabetes))
   - site5c: Site at Exam 5
   - bmi5c: BMI
   - cig5c: Cigarette smoking status
+  - curalc5: Presently Drink Alcohol
   - dbp5c: Seated diastolic blood pressure
   - sbp5c: seated systolic blood pressure
   - glucose5: Fasting glucose (mg/dl)
@@ -103,10 +104,10 @@ colSums(is.na(MESA_E5))
     ##         0         0         0         0         0         0         0         9 
     ##  dominic1    puert1    cuban1  othhisp1     lang1   gender1    site5c     bmi5c 
     ##         9         9         9         9         0         0         0        74 
-    ##     cig5c     dbp5c     sbp5c  glucose5    dm035c      ldl5  ldlcat5c      hdl5 
-    ##         0        63        63       129       121       157       157       135 
-    ##  hdlcat5c     chol5     htn5c   income5  exercm5c casisum5c  numhhld5 
-    ##       135       134        63       213        78       125       109
+    ##     cig5c   curalc5     dbp5c     sbp5c  glucose5    dm035c      ldl5  ldlcat5c 
+    ##         0        59        63        63       129       121       157       157 
+    ##      hdl5  hdlcat5c     chol5     htn5c   income5  exercm5c casisum5c  numhhld5 
+    ##       135       135       134        63       213        78       125       109
 
 At this point, I’ll only be removing participants who are not
 Hispanic/Latino (from race1c) and those who are missing values for the
@@ -129,7 +130,7 @@ There are 999 Hispanic/Latino’s in the sample, of these 15 have a
 missing CASI Score in Exam 5–we will exclude these participants.
 
 - **Final \# of Observations:** 984
-- **Final \# of variables:** 31
+- **Final \# of variables:** 32
 
 ``` r
 library(dplyr)
@@ -137,7 +138,7 @@ glimpse(MESA_E5)
 ```
 
     ## Rows: 984
-    ## Columns: 31
+    ## Columns: 32
     ## $ idno      <dbl> 3015556, 3015700, 4010019, 4010051, 4010078, 4010108, 401011…
     ## $ ecomp5c   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
     ## $ age1c     <dbl> 60, 47, 82, 65, 76, 65, 61, 53, 73, 47, 77, 48, 52, 80, 52, …
@@ -155,6 +156,7 @@ glimpse(MESA_E5)
     ## $ site5c    <dbl> 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, …
     ## $ bmi5c     <dbl> 28.06424, 20.95642, 29.71071, 28.31443, 26.87518, 36.59724, …
     ## $ cig5c     <dbl> 0, 2, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
+    ## $ curalc5   <dbl> 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, …
     ## $ dbp5c     <dbl> 84.0, 59.0, 76.5, 64.5, 79.0, 61.0, 70.0, 68.5, 65.5, 74.0, …
     ## $ sbp5c     <dbl> 137.5, 100.5, 148.0, 129.5, 131.5, 119.5, 117.0, 163.5, 135.…
     ## $ glucose5  <dbl> 95, 83, 106, 178, NA, 94, 98, 210, 152, 95, 106, 85, 101, 87…
@@ -170,16 +172,6 @@ glimpse(MESA_E5)
     ## $ casisum5c <dbl> 94.0, 89.0, 67.8, 75.0, 61.2, 65.4, 87.5, 85.0, 80.0, 90.9, …
     ## $ numhhld5  <dbl> 1, 2, 2, 5, 1, 1, 2, 1, 2, 1, 1, 3, 1, 2, 4, 1, 2, 5, 2, 2, …
 
-*To consider:* For the Exam 5 Completion Status (ecomp5c), should I only
-include 1 = complete? or also include 2 = partially complete (home
-admin) or 3 = partially complete (phone admin)? N’s are below:
-
-No, participants will not be excluded based on Exam 5 Completion Status.
-
-    ## 
-    ##   1   2 
-    ## 971  13
-
 ## Cleaning MESA_E1 datafile
 
 - **Time frame for data file**: July 2000-August 2002
@@ -188,7 +180,7 @@ No, participants will not be excluded based on Exam 5 Completion Status.
 
 - **Starting \# of variables:** 813
 
-- **Variables kept:** 15
+- **Variables kept:** 7
 
   <details>
 
@@ -199,14 +191,6 @@ No, participants will not be excluded based on Exam 5 Completion Status.
   - educ1: education: highest level completed
   - yrsalc1c: \# of years drinking alcohol (current and former drinkers)
   - alcwk1c: \# of drinks per week (current and former drinkers)
-  - nviolen1: Violence Problem in Neighborhood
-  - nlfshop1: Lack of adequate food shopping in neighborhood
-  - nnoise1: Excessive noise in neighborhood
-  - nvalues1: People in neighborhood do not share the same values
-  - nclose1: Close-knit neighborhood
-  - Nhdtim1c or nhdyrs1: \# of years in the neighborhood
-  - ncohes1c: Neighborhood social cohesion score
-  - nprob1c: Neighborhood problems score
 
   </details>
 
@@ -222,7 +206,7 @@ at Exam 5.
 ### Merging MESA_e5 (left) with MESA_e1 (right) to create *MESA_final*:
 
 - **Final \# of observations:** 984
-- **Final \# of variables:** 45
+- **Final \# of variables:** 38
 
 ``` r
 MESA_final = 
@@ -232,7 +216,7 @@ glimpse(MESA_final)
 ```
 
     ## Rows: 984
-    ## Columns: 45
+    ## Columns: 38
     ## $ idno      <dbl> 3015556, 3015700, 4010019, 4010051, 4010078, 4010108, 401011…
     ## $ ecomp5c   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
     ## $ age1c     <dbl> 60, 47, 82, 65, 76, 65, 61, 53, 73, 47, 77, 48, 52, 80, 52, …
@@ -250,6 +234,7 @@ glimpse(MESA_final)
     ## $ site5c    <dbl> 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, …
     ## $ bmi5c     <dbl> 28.06424, 20.95642, 29.71071, 28.31443, 26.87518, 36.59724, …
     ## $ cig5c     <dbl> 0, 2, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
+    ## $ curalc5   <dbl> 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, …
     ## $ dbp5c     <dbl> 84.0, 59.0, 76.5, 64.5, 79.0, 61.0, 70.0, 68.5, 65.5, 74.0, …
     ## $ sbp5c     <dbl> 137.5, 100.5, 148.0, 129.5, 131.5, 119.5, 117.0, 163.5, 135.…
     ## $ glucose5  <dbl> 95, 83, 106, 178, NA, 94, 98, 210, 152, 95, 106, 85, 101, 87…
@@ -270,19 +255,11 @@ glimpse(MESA_final)
     ## $ educ1     <dbl> 5, 4, 3, 1, 1, 2, 8, 4, 1, 3, 3, 3, 4, 3, 4, 3, 6, 4, 1, 4, …
     ## $ yrsalc1c  <dbl> 20, 24, 61, 51, 42, NA, 38, NA, 51, 30, 57, 23, 38, 64, NA, …
     ## $ alcwk1c   <dbl> 6, 3, 0, 6, 10, NA, 0, NA, 0, 20, 0, 0, 4, 0, NA, 0, 0, 0, 1…
-    ## $ nviolen1  <dbl> 4, 4, 3, 2, 3, 1, 4, 3, 3, 2, 3, 3, 3, 4, 3, 4, 1, 2, 3, 3, …
-    ## $ nlfshop1  <dbl> 3, 4, 4, 4, 3, 3, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, …
-    ## $ nnoise1   <dbl> 4, 3, 3, 3, 2, 2, 4, 4, 3, 2, 3, 3, 2, 2, 3, 4, 2, 4, 4, 1, …
-    ## $ nvalues1  <dbl> 3, 3, 4, 2, 2, 3, 2, 3, 2, 4, 3, 3, 3, 2, 3, 3, 2, 2, 2, 2, …
-    ## $ nclose1   <dbl> 3, 3, 2, 4, 4, 3, 3, 3, 2, 3, 3, 3, 3, 2, 3, 2, 4, 3, 4, 4, …
-    ## $ nhdtim1c  <dbl> 21, 8, 35, 30, 10, 45, 34, 23, 10, 27, 10, 25, 7, 52, 15, 15…
-    ## $ ncohes1c  <dbl> 18, 16, 20, 12, 11, 16, 17, 17, 14, 16, 17, 15, 14, 18, 15, …
-    ## $ nprob1c   <dbl> 10, 10, 12, 15, 13, 22, 9, 10, 10, 18, 13, 16, 13, 12, 11, 7…
 
 ### Merging MESA_final(left) with time_to_diabetes (right) to create *MESA_final*:
 
 - **Final \# of observations:** 984
-- **Final \# of variables:** 46
+- **Final \# of variables:** 39
 
 ``` r
 MESA_final = 
@@ -292,7 +269,7 @@ glimpse(MESA_final)
 ```
 
     ## Rows: 984
-    ## Columns: 46
+    ## Columns: 39
     ## $ idno      <dbl> 3015556, 3015700, 4010019, 4010051, 4010078, 4010108, 401011…
     ## $ ecomp5c   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
     ## $ age1c     <dbl> 60, 47, 82, 65, 76, 65, 61, 53, 73, 47, 77, 48, 52, 80, 52, …
@@ -310,6 +287,7 @@ glimpse(MESA_final)
     ## $ site5c    <dbl> 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, …
     ## $ bmi5c     <dbl> 28.06424, 20.95642, 29.71071, 28.31443, 26.87518, 36.59724, …
     ## $ cig5c     <dbl> 0, 2, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
+    ## $ curalc5   <dbl> 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, …
     ## $ dbp5c     <dbl> 84.0, 59.0, 76.5, 64.5, 79.0, 61.0, 70.0, 68.5, 65.5, 74.0, …
     ## $ sbp5c     <dbl> 137.5, 100.5, 148.0, 129.5, 131.5, 119.5, 117.0, 163.5, 135.…
     ## $ glucose5  <dbl> 95, 83, 106, 178, NA, 94, 98, 210, 152, 95, 106, 85, 101, 87…
@@ -330,14 +308,6 @@ glimpse(MESA_final)
     ## $ educ1     <dbl> 5, 4, 3, 1, 1, 2, 8, 4, 1, 3, 3, 3, 4, 3, 4, 3, 6, 4, 1, 4, …
     ## $ yrsalc1c  <dbl> 20, 24, 61, 51, 42, NA, 38, NA, 51, 30, 57, 23, 38, 64, NA, …
     ## $ alcwk1c   <dbl> 6, 3, 0, 6, 10, NA, 0, NA, 0, 20, 0, 0, 4, 0, NA, 0, 0, 0, 1…
-    ## $ nviolen1  <dbl> 4, 4, 3, 2, 3, 1, 4, 3, 3, 2, 3, 3, 3, 4, 3, 4, 1, 2, 3, 3, …
-    ## $ nlfshop1  <dbl> 3, 4, 4, 4, 3, 3, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, …
-    ## $ nnoise1   <dbl> 4, 3, 3, 3, 2, 2, 4, 4, 3, 2, 3, 3, 2, 2, 3, 4, 2, 4, 4, 1, …
-    ## $ nvalues1  <dbl> 3, 3, 4, 2, 2, 3, 2, 3, 2, 4, 3, 3, 3, 2, 3, 3, 2, 2, 2, 2, …
-    ## $ nclose1   <dbl> 3, 3, 2, 4, 4, 3, 3, 3, 2, 3, 3, 3, 3, 2, 3, 2, 4, 3, 4, 4, …
-    ## $ nhdtim1c  <dbl> 21, 8, 35, 30, 10, 45, 34, 23, 10, 27, 10, 25, 7, 52, 15, 15…
-    ## $ ncohes1c  <dbl> 18, 16, 20, 12, 11, 16, 17, 17, 14, 16, 17, 15, 14, 18, 15, …
-    ## $ nprob1c   <dbl> 10, 10, 12, 15, 13, 22, 9, 10, 10, 18, 13, 16, 13, 12, 11, 7…
     ## $ dmage     <dbl> 73, NA, NA, 61, 62, 77, NA, 21, 57, NA, 81, NA, NA, NA, NA, …
 
 ``` r
@@ -354,11 +324,9 @@ colSums(is.na(MESA_final))
     ##         0         0         0         0         0         0         0         2 
     ##  dominic1    puert1    cuban1  othhisp1     lang1   gender1    site5c     bmi5c 
     ##         2         2         2         2         0         0         0         1 
-    ##     cig5c     dbp5c     sbp5c  glucose5    dm035c      ldl5  ldlcat5c      hdl5 
-    ##         0         1         1         6         6        17        17         7 
-    ##  hdlcat5c     chol5     htn5c   income5  exercm5c casisum5c  numhhld5      bth1 
-    ##         7         7         1        27         7         0        14         0 
-    ##  ctrybth1   langhm1     educ1  yrsalc1c   alcwk1c  nviolen1  nlfshop1   nnoise1 
-    ##         0       651         0       249       247         1         0         2 
-    ##  nvalues1   nclose1  nhdtim1c  ncohes1c   nprob1c     dmage 
-    ##         1         0        10         3         8       609
+    ##     cig5c   curalc5     dbp5c     sbp5c  glucose5    dm035c      ldl5  ldlcat5c 
+    ##         0         6         1         1         6         6        17        17 
+    ##      hdl5  hdlcat5c     chol5     htn5c   income5  exercm5c casisum5c  numhhld5 
+    ##         7         7         7         1        27         7         0        14 
+    ##      bth1  ctrybth1   langhm1     educ1  yrsalc1c   alcwk1c     dmage 
+    ##         0         0       651         0       249       247       609

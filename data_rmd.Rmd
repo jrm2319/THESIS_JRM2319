@@ -47,7 +47,7 @@ colSums(is.na(time_to_diabetes))
 - **Starting # of Observations**: 4716
 - **Starting # of variables**: 297
 
-- **Variables Kept:** 31
+- **Variables Kept:** 32
 <details>
   - idno: Participant ID number 
   - ecomp5c: Exam 5 Completion Status
@@ -65,7 +65,8 @@ colSums(is.na(time_to_diabetes))
   - gender1: Gender 
   - site5c: Site at Exam 5
   - bmi5c: BMI 
-  - cig5c: Cigarette smoking status 
+  - cig5c: Cigarette smoking status
+  - curalc5: Presently Drink Alcohol
   - dbp5c: Seated diastolic blood pressure 
   - sbp5c: seated systolic blood pressure
   - glucose5: Fasting glucose (mg/dl)
@@ -84,7 +85,7 @@ colSums(is.na(time_to_diabetes))
 - **Missing Values:**
 ```{r include=FALSE}
 library(dplyr)
-MESA_E5 = select(MESA_E5, idno, ecomp5c, age1c, agecat1c, age5c, agecat5c, race1c, mexican1, dominic1, puert1, cuban1, othhisp1, lang1, gender1, site5c, bmi5c, cig5c, dbp5c, sbp5c, glucose5, dm035c, ldl5, ldlcat5c, hdl5, hdlcat5c, chol5, htn5c, income5, exercm5c, casisum5c, numhhld5)
+MESA_E5 = select(MESA_E5, idno, ecomp5c, age1c, agecat1c, age5c, agecat5c, race1c, mexican1, dominic1, puert1, cuban1, othhisp1, lang1, gender1, site5c, bmi5c, cig5c, curalc5, dbp5c, sbp5c, glucose5, dm035c, ldl5, ldlcat5c, hdl5, hdlcat5c, chol5, htn5c, income5, exercm5c, casisum5c, numhhld5)
 ```
 ```{r}
 colSums(is.na(MESA_E5))
@@ -102,26 +103,18 @@ MESA_E5 = MESA_E5 %>%
 There are 999 Hispanic/Latino's in the sample, of these 15 have a missing CASI Score in Exam 5--we will exclude these participants. 
 
 - **Final # of Observations:** 984
-- **Final # of variables:** 31
+- **Final # of variables:** 32
 
 ```{r}
 library(dplyr)
 glimpse(MESA_E5)
 ```
-*To consider:* For the Exam 5 Completion Status (ecomp5c), should I only include 1 = complete? or also include 2 = partially complete (home admin) or 3 = partially complete (phone admin)? N's are below: 
-
-No, participants will not be excluded based on Exam 5 Completion Status.
-
-```{r echo=FALSE}
-table(MESA_E5$ecomp5c)
-```
-
 ## Cleaning MESA_E1 datafile
 - **Time frame for data file**: July 2000-August 2002 
 - **Starting # of Observations:** 6814
 - **Starting # of variables:** 813
 
-- **Variables kept:** 15
+- **Variables kept:** 7
 <details>
   - Idno: Participant ID number 
   - bth1: Birth Place-Self
@@ -130,18 +123,12 @@ table(MESA_E5$ecomp5c)
   - educ1: education: highest level completed 
   - yrsalc1c: # of years drinking alcohol (current and former drinkers)
   - alcwk1c: # of drinks per week (current and former drinkers) 
-  - nviolen1: Violence Problem in Neighborhood 
-  - nlfshop1: Lack of adequate food shopping in neighborhood 
-  - nnoise1: Excessive noise in neighborhood 
-  - nvalues1: People in neighborhood do not share the same values
-  - nclose1: Close-knit neighborhood 
-  - Nhdtim1c or nhdyrs1: # of years in the neighborhood 
-  - ncohes1c: Neighborhood social cohesion score 
-  - nprob1c: Neighborhood problems score
 </details>
 ```{r include=FALSE}
 library(dplyr)
-MESA_E1 = select(MESA_E1, idno, bth1, ctrybth1, langhm1, educ1, yrsalc1c, alcwk1c, nviolen1, nlfshop1, nnoise1, nvalues1, nclose1, nhdtim1c, ncohes1c, nprob1c)
+MESA_E1 = select(MESA_E1, idno, bth1, ctrybth1, langhm1, educ1, yrsalc1c, alcwk1c)
+
+glimpse(MESA_E1)
 ```
 
 I am keeping 15 variable. No participants will be removed from this data file because I'll be preforming a left join with the MESA_E5 data file being first and MESA_E1 being second, using idno. Therefore, the resulting dataset will only include the 984 Latinos who had CASI scores at Exam 5. 
@@ -151,7 +138,7 @@ I am keeping 15 variable. No participants will be removed from this data file be
 
 ### Merging MESA_e5 (left) with MESA_e1 (right) to create *MESA_final*:
 - **Final # of observations:** 984 
-- **Final # of variables:** 45
+- **Final # of variables:** 38
 ```{r}
 MESA_final = 
   left_join(MESA_E5, MESA_E1, by = "idno")
@@ -161,7 +148,7 @@ glimpse(MESA_final)
 
 ### Merging MESA_final(left) with time_to_diabetes (right) to create *MESA_final*:
 - **Final # of observations:** 984 
-- **Final # of variables:** 46
+- **Final # of variables:** 39
 ```{r}
 MESA_final = 
   left_join(MESA_final, time_to_diabetes, by = "idno")
