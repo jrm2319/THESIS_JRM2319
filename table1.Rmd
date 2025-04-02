@@ -184,6 +184,17 @@ Average cognitive assessment score-CASI
 mean(MESA_final$casisum5c, na.rm = TRUE)
 sd(MESA_final$casisum5c, na.rm = TRUE)
 ```
+Distribution of CASI and identifying the 10% 
+```{r}
+hist(MESA_final$casisum5c, xlab = "casisum5c")
+
+CASI_cutoff = quantile(MESA_final$casisum5c, 0.10, na.rm = TRUE)
+print(CASI_cutoff)
+count_lower_10 <- sum(MESA_final$casisum5c <= CASI_cutoff, na.rm = TRUE)
+print(count_lower_10)
+
+
+```
 
 
 

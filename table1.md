@@ -447,3 +447,26 @@ sd(MESA_final$casisum5c, na.rm = TRUE)
 ```
 
     ## [1] 12.46921
+
+Distribution of CASI and identifying the 10%
+
+``` r
+hist(MESA_final$casisum5c, xlab = "casisum5c")
+```
+
+![](table1_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+
+``` r
+CASI_cutoff = quantile(MESA_final$casisum5c, 0.10, na.rm = TRUE)
+print(CASI_cutoff)
+```
+
+    ## 10% 
+    ##  69
+
+``` r
+count_lower_10 <- sum(MESA_final$casisum5c <= CASI_cutoff, na.rm = TRUE)
+print(count_lower_10)
+```
+
+    ## [1] 102
