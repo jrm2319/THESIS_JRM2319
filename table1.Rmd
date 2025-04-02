@@ -60,17 +60,7 @@ Other Hispanic
 table(MESA_final$othhisp1)
 prop.table(table(MESA_final$othhisp1))
 ```
-#### Preferred Language 
-*Using "Language spoken at Exam 1*  
-1:English   
-2: Spanish   
-3: Chinese  
-```{r}
-table(MESA_final$lang1)
-prop.table(table(MESA_final$lang1))
-```
-
-*Using "Language spoken at  home*  
+#### Language spoken at home
 1: ENGLISH  
 2: SPANISH  
 3: CANTONESE  
@@ -81,7 +71,14 @@ table(MESA_final$langhm1)
 prop.table(table(MESA_final$langhm1))
 ```
 
-_Question_ Should we create another variable using "Language spoken at Exam 1" and "Language spoken at home"? 
+#### Language spoken at Exam 1 
+1: English   
+2: Spanish   
+3: Chinese  
+```{r}
+table(MESA_final$lang1)
+prop.table(table(MESA_final$lang1))
+```
 
 #### Geographic Location  
 3: WFU = Winston-Salem, NC
@@ -111,16 +108,21 @@ prop.table(table(MESA_final$cig5c))
 table(MESA_final$htn5c)
 prop.table(table(MESA_final$htn5c))
 ```
+#### Current Alcohol Consumption
+```{r}
+table(MESA_final$curalc5)
+prop.table(table(MESA_final$curalc5))
+```
 
-#### Diabetes at Exam  
-"Exam 1 Diabetes Mellitus by 2003 ADA Fasting Criteria Algorithm"   
+
+#### Diabetes at Exam 5 
+"Exam 5 Diabetes Mellitus by 2003 ADA Fasting Criteria Algorithm"   
 0: Normal  
 1: IFG ("impaired fasting glucose")  
-2: Untreated Diabetes  
-3: Treated Diabetes   
+2: Diabetes
 ```{r}
-table(MESA_final$dm035c)
-prop.table(table(MESA_final$dm035c))
+table(MESA_final$dm035c_recode)
+prop.table(table(MESA_final$dm035c_recode))
 ```
 _Question_: Should I create new variable combining Normal and IFG as "no diabetes" and untrested diabetes and treated diabetes as "diabetes"? 
 
@@ -140,6 +142,27 @@ Average intentional exercises, minutes per week
 mean(MESA_final$exercm5c, na.rm = TRUE)
 sd(MESA_final$exercm5c, na.rm = TRUE)
 ```
+- The mean and SD for Average intentional exercises, minutes per week seems a little off. Here is the distribution for the variable ot understand if there are any outliers or issues with the data:
+```{r}
+hist(MESA_final$exercm5c, xlab = "exercm5c")
+
+boxplot(MESA_final$exercm5c, ylab = "exercm5c")
+
+```
+```{r}
+Q1 = quantile(MESA_final$exercm5c, 0.25, na.rm = TRUE)
+Q3 = quantile(MESA_final$exercm5c, 0.75, na.rm = TRUE)
+IQR_value = IQR(MESA_final$exercm5c, na.rm = TRUE)
+
+lower_threshold = Q1 - 1.5 * IQR_value
+upper_threshold = Q3 + 1.5 * IQR_value
+
+outliers = MESA_final$exercm5c[MESA_final$exercm5c < lower_threshold | MESA_final$exercm5c > upper_threshold]
+
+print(outliers)
+
+```
+
 
 Average age of diabetes diagnosis, yrs
 ```{r}

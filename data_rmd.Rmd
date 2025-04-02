@@ -144,6 +144,7 @@ glimpse(MESA_E5)
   - bth1: Birth Place-Self
   - ctrybth1: Birth country 
   - langhm1: Language Spoken at home 
+  - lang1: Language Spoken at Exam 1 
   - educ1: education: highest level completed 
   - yrsalc1c: # of years drinking alcohol (current and former drinkers)
   - alcwk1c: # of drinks per week (current and former drinkers) 
