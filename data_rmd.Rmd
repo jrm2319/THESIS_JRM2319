@@ -90,6 +90,30 @@ MESA_E5 = select(MESA_E5, idno, ecomp5c, age1c, agecat1c, age5c, agecat5c, race1
 ```{r}
 colSums(is.na(MESA_E5))
 ```
+Here, I am recoding dm035c (Diabetes 2003 ADA Fasting Criteria) from 4 categories into 3 categories. This recoding will combine "untreated diabetes" and "treated diabetes" into one category called "diabetes." 
+
+Therefore, the three final categories of the new variables 'dm035c_recode' are 0: normal, 1: Impaired Fasting Glucose, and 2: Diabetes. 
+
+Tabulations before recoding 
+```{r}
+table(MESA_E5$dm035c)
+```
+
+```{r}
+library(dplyr)
+MESA_E5 <- MESA_E5 %>%
+  mutate(dm035c_recode = case_when(
+    dm035c == 0 ~ 0,
+    dm035c == 1 ~ 1,
+    dm035c %in% c(2, 3) ~ 2
+  ))
+```
+Tabulations after recoding 
+```{r}
+table(MESA_E5$dm035c_recode)
+
+```
+
 At this point, I'll only be removing participants who are not Hispanic/Latino (from race1c) and those who are missing values for the CASI assessment at Exam 5. Participants with missing values for exposures of interests will be potentially removed after merging Exam 1 and Exam 5. 
 
 The reasoning for this is because variables across both Exam 1 and Exam 5 will be used in the creation of the acculturation score and the 'ever having diabetes' variables, therefore the full extent to missing-ness cannot be assessed until I get to that merged dataset.  
