@@ -193,6 +193,9 @@ print(CASI_cutoff)
 count_lower_10 <- sum(MESA_final$casisum5c <= CASI_cutoff, na.rm = TRUE)
 print(count_lower_10)
 
+count_lt74 = sum(MESA_final$casisum5c <= 74, na.rm = TRUE)
+print(count_lt74)
+
 
 ```
 

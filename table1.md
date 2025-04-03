@@ -470,3 +470,10 @@ print(count_lower_10)
 ```
 
     ## [1] 102
+
+``` r
+count_lt74 = sum(MESA_final$casisum5c <= 74, na.rm = TRUE)
+print(count_lt74)
+```
+
+    ## [1] 169
